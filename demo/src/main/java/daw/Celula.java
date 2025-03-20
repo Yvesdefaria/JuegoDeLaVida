@@ -1,3 +1,4 @@
+package daw;
 public class Celula {
     private int fila;
     private int columna;
