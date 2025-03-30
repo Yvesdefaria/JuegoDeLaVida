@@ -13,15 +13,13 @@ public class Juego {
         this.poblacionPorGeneracion = new int[N * N]; // máximo tamaño de población para generaciones
     }
 
-    public void iniciarJuegoNuevo(double porcentaje) {
-        
-        tablero.mostrarMatriz();
-    }
-
     public void mostrarGeneracionSiguiente() {
         tablero.siguienteGeneracion();
         generaciones++;
         tablero.mostrarMatriz();
+        //if (tablero.getMatriz().equals(tablero.siguienteGeneracion().nuevaMatriz)) {
+        //   cont++;
+        //}
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -36,7 +34,6 @@ public class Juego {
         }
 
         juego = new Juego(N);
-        //juego.iniciarJuegoNuevo(Tablero.calcularVivasIniciales(N));
         int menuColocacion = 0;
         while (menuColocacion != 3) {
             System.err.println("Menu de la Vida");
@@ -48,8 +45,10 @@ public class Juego {
             scanner.nextLine(); // Limpiar buffer
             if (menuColocacion==1) {
                 tablero.colocacionRandom();
+                tablero.mostrarMatriz();
             }else if(menuColocacion==2){
                 tablero.colocacionManual();
+                tablero.mostrarMatriz();
             }else if(menuColocacion==3){
                 break;
             }
@@ -70,7 +69,7 @@ public class Juego {
             } else if (controlMenu == 3) {
                 break;
             }
-            scanner.close();
+            
         }
         }
         

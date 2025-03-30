@@ -46,9 +46,9 @@ public class Tablero {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (matriz[i][j].isEstaVivo()) {
-                    System.out.print("1 ");
+                    System.out.print("0s ");
                 } else {
-                    System.out.print("O ");
+                    System.out.print("  ");
                 }
 
             }
