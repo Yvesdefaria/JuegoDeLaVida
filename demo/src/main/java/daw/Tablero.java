@@ -41,20 +41,10 @@ public class Tablero {
     public static int getMaxSize() {
         return MAX_SIZE;
     }
-
-    // public static int[][] crearMatriz(int filas) {
-    // int[][] matriz = new int[filas][filas];
-    // for (int i = 0; i < matriz.length; i++) {
-    // for (int j = 0; j < matriz[i].length; j++) {
-    // matriz[i][j] = 0;
-    // }
-    // }
-    // return matriz;
-    // }
     // Método para mostrar el estado actual del tablero
-    public static void mostrarMatriz(Celula[][] matriz) {
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
+    public  void mostrarMatriz() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 if (matriz[i][j].isEstaVivo()) {
                     System.out.print("1 ");
                 } else {
@@ -76,6 +66,7 @@ public class Tablero {
         while (porcentaje < 0 || porcentaje > 100) {
             System.out.println("Porcentaje inválido. Introduzca un valor entre 0 y 100:");
             porcentaje = teclado.nextDouble();
+            teclado.nextLine(); // Limpiar buffer
         }
 
         double numCasillas = N * N;
@@ -83,8 +74,9 @@ public class Tablero {
     }
 
     // Metodo para colocar las celulas en el tablero de forma aleatoria
-    public static void colocacionRandom(Celula[][] matriz, int porcentaje) {
+    public  void colocacionRandom() {
         Random r = new Random();
+        int porcentaje = calcularVivasIniciales(N);
         int fila;
         int columna;
         do {
@@ -98,8 +90,9 @@ public class Tablero {
     }
     // Metodo para colocar las celulas en el tablero elijiendo la casilla
 
-    public static void colocacionManual(Celula[][] matriz, int porcentaje) {
+    public  void colocacionManual() {
         Scanner teclado = new Scanner(System.in);
+        int porcentaje = calcularVivasIniciales(N);
         int fila;
         int columna;
         for (int i = 0; i < porcentaje; i++) {
@@ -140,7 +133,7 @@ public class Tablero {
     }
 
     // metodo la imprimir las casillas de alrededor
-    public static int contarVecina(int fila, int columna, Celula[][] matriz) {
+    public  int contarVecina(int fila, int columna ) {
         boolean estado;
         int cont = 0;
         // recorro la fila anterio, lasuya y las posterior
@@ -163,7 +156,32 @@ public class Tablero {
 
     }
 
-    public static void update(Celula[][] matriz){
-        int numeroCellViva = contarVecina(MAX_SIZE, MAX_SIZE, matriz)
+    public void siguienteGeneracion(){
+        Celula[][] nuevaMatriz = new Celula[N][N];
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N ; j++) {
+                nuevaMatriz[i][j] = new Celula();
+            }
+        }
+        
+        int vecinoVivo = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N ; j++) {
+                vecinoVivo = contarVecina(i, j);
+                if (matriz[i][j].isEstaVivo()) {
+                    if (vecinoVivo == 2 || vecinoVivo == 3) {
+                        nuevaMatriz[i][j].setEstaVivo(true);
+                    }else{
+                        nuevaMatriz[i][j].setEstaVivo(false);
+                    }
+                }else{
+                    if ( vecinoVivo == 3) {
+                        nuevaMatriz[i][j].setEstaVivo(true);
+                    }
+                }
+            }
+        }
+        this.matriz = nuevaMatriz;
     }
 }
