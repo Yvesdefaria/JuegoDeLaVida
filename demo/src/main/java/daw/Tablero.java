@@ -1,5 +1,6 @@
 package daw;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,12 +42,38 @@ public class Tablero {
     public static int getMaxSize() {
         return MAX_SIZE;
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.deepHashCode(matriz);
+        result = prime * result + N;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Tablero other = (Tablero) obj;
+        if (!Arrays.deepEquals(matriz, other.matriz))
+            return false;
+        if (N != other.N)
+            return false;
+        return true;
+    }
+
     // Método para mostrar el estado actual del tablero
     public  void mostrarMatriz() {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (matriz[i][j].isEstaVivo()) {
-                    System.out.print("0s ");
+                    System.out.print("0 ");
                 } else {
                     System.out.print("  ");
                 }
@@ -144,7 +171,7 @@ public class Tablero {
                 if (posicionValida(i, j, matriz)) {
 
                     estado = comprobrarEstado(i, j, matriz);
-                    if (estado) {
+                    if (estado && !(i==fila && j==columna)) {
                         cont++;
                     }
                 }
