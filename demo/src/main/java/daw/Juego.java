@@ -36,9 +36,9 @@ public class Juego {
         juego = new Juego(N);
         int menuColocacion = 0;
         while (menuColocacion != 3) {
-            System.err.println("Menu de la Vida");
-            System.out.println("1. Colocar Ramdon");
-            System.out.println("2. Colocar Manual");
+            System.out.println("Menu de la Vida");
+            System.out.println("1. Colocacion Ramdon");
+            System.out.println("2. Colocacion Manual");
             System.out.println("3. Salir");
             System.out.println("Selecciona una opción:");
             menuColocacion = scanner.nextInt();
@@ -54,7 +54,7 @@ public class Juego {
             }
         int controlMenu = 0;
         while (controlMenu != 2) {
-            System.err.println("Menu Generacion");
+            System.out.println("Menu Generacion");
             System.out.println("1. Mostrar siguiente generación");
             System.out.println("2. Terminar juego");
             System.out.println("3. Guardar juego");
