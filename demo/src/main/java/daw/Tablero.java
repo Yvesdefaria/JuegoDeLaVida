@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 public class Tablero {
 
-    public static int getMAX_SIZE() {
-        return MAX_SIZE;
-    }
+   
 
     private Celula[][] matriz;
     private int N;
@@ -38,10 +36,11 @@ public class Tablero {
     public int getN() {
         return N;
     }
-
-    public static int getMaxSize() {
+     public static int getMAX_SIZE() {
         return MAX_SIZE;
     }
+
+
     
     @Override
     public int hashCode() {
@@ -73,9 +72,9 @@ public class Tablero {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (matriz[i][j].isEstaVivo()) {
-                    System.out.print("0 ");
+                    System.out.print("\u25A0 ");
                 } else {
-                    System.out.print("  ");
+                    System.out.print("\u25AB ");
                 }
 
             }
@@ -211,4 +210,11 @@ public class Tablero {
         }
         this.matriz = nuevaMatriz;
     }
+
+ /*   public static void comprobarMatrizRepe(Celula[][]matriz) {
+        do{
+
+
+        }while();
+    }*/ 
 }
