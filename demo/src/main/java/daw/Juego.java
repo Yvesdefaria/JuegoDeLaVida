@@ -62,6 +62,7 @@ public class Juego {
 
             if (controlMenu == 1) {
                 juego.mostrarGeneracionSiguiente();
+                tablero.comprobarMatrizRepe();
             } else if (controlMenu == 2) {
                 break;
             } else if (controlMenu == 3) {

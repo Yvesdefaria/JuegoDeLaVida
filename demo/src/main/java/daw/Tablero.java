@@ -13,6 +13,7 @@ public class Tablero {
     private Celula[][] matriz;
     private int N;
     private static final int MAX_SIZE = 25;
+    private List<Celula[][]> lista_Matrizes = new ArrayList<>();
 
     // Constructor de la clase Tablero
     public Tablero(int N) {
@@ -147,7 +148,7 @@ public class Tablero {
     }
 
     // Metodo que nos dice si una celula esta viva o muerta
-    public static boolean comprobrarEstado(int fila, int columna, Celula[][] matriz) {
+    public static boolean comprobarEstado(int fila, int columna, Celula[][] matriz) {
         return (matriz[fila][columna].isEstaVivo());
     }
 
@@ -171,7 +172,7 @@ public class Tablero {
             for (int j = columna - 1; j <= columna + 1; j++) {
                 if (posicionValida(i, j, matriz)) {
 
-                    estado = comprobrarEstado(i, j, matriz);
+                    estado = comprobarEstado(i, j, matriz);
                     if (estado && !(i==fila && j==columna)) {
                         cont++;
                     }
@@ -186,7 +187,7 @@ public class Tablero {
 
     public void siguienteGeneracion(){
         Celula[][] nuevaMatriz = new Celula[N][N];
-        int cont = 0;
+       
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N ; j++) {
                 nuevaMatriz[i][j] = new Celula();
@@ -210,20 +211,41 @@ public class Tablero {
                 }
             }
         }
-        cont++;
+        
         
         this.matriz = nuevaMatriz;
-        comprobarMatrizRepe(cont);
+       
     }
 
-    public  void comprobarMatrizRepe(int cont) {
-        List<Celula[][]> lista_Matrizes = new ArrayList<>();
-         
-        lista_Matrizes.add(this.matriz);
-        if(cont>=3){
+    public boolean comprobarMatrizRepe() {
+        int vivas1 = 0;
+        int vivas2 = 0;
+        int vivas3 = 0;
+        this.lista_Matrizes.add(this.matriz);
+
+        if(lista_Matrizes.size() > 2 ){
             lista_Matrizes.remove(0);
                 }
-
-
+         vivas1 = contarVivas(lista_Matrizes.get(0));
+        if(lista_Matrizes.size() > 1){
+         vivas2 = contarVivas(lista_Matrizes.get(1));
+        }
+        if(lista_Matrizes.size() > 2){
+         vivas3 = contarVivas(lista_Matrizes.get(2));
+        }
+        if (vivas1 == vivas2 && vivas2 == vivas3){
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if(Arrays.deepEquals(lista_Matrizes.get(0), lista_Matrizes.get(1)) && Arrays.deepEquals(lista_Matrizes.get(1), lista_Matrizes.get(2))){
+                        System.out.println("Funciona");
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        
+        return false;
     } 
+    
 }
