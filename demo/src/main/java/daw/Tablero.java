@@ -1,6 +1,8 @@
 package daw;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -184,7 +186,7 @@ public class Tablero {
 
     public void siguienteGeneracion(){
         Celula[][] nuevaMatriz = new Celula[N][N];
-
+        int cont = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N ; j++) {
                 nuevaMatriz[i][j] = new Celula();
@@ -208,13 +210,20 @@ public class Tablero {
                 }
             }
         }
+        cont++;
+        
         this.matriz = nuevaMatriz;
+        comprobarMatrizRepe(cont);
     }
 
- /*   public static void comprobarMatrizRepe(Celula[][]matriz) {
-        do{
+    public  void comprobarMatrizRepe(int cont) {
+        List<Celula[][]> lista_Matrizes = new ArrayList<>();
+         
+        lista_Matrizes.add(this.matriz);
+        if(cont>=3){
+            lista_Matrizes.remove(0);
+                }
 
 
-        }while();
-    }*/ 
+    } 
 }
