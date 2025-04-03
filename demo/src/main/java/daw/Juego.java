@@ -17,9 +17,7 @@ public class Juego {
         tablero.siguienteGeneracion();
         generaciones++;
         tablero.mostrarMatriz();
-        //if (tablero.getMatriz().equals(tablero.siguienteGeneracion().nuevaMatriz)) {
-        //   cont++;
-        //}
+    
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
