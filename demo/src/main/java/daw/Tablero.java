@@ -1,5 +1,9 @@
 package daw;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +19,8 @@ public class Tablero {
     private static final int MAX_SIZE = 25;
     private List<Celula[][]> lista_Matrizes = new ArrayList<>();
     private int contadorRepe = 1;  
+    private int generaciones;
+    private List<Integer> poblacionPorGeneracion = new ArrayList<>();
 
     // Constructor de la clase Tablero
     public Tablero(int N) {
@@ -224,8 +230,9 @@ public class Tablero {
         }
 
         comprobarMatrizRepe();
-        
-        
+        this.generaciones++;
+        this.poblacionPorGeneracion.add(contarVivas(nuevaMatriz));
+
         this.matriz = nuevaMatriz;
        
     }
@@ -247,6 +254,53 @@ public class Tablero {
         }
 
         return true;
+    }
+     public void guardar(String archivo) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
+            pw.println(N + " " + N);
+            pw.println(generaciones);
+            for (Celula[] fila : matriz) {
+                for (Celula c : fila) {
+                    pw.print((c.isEstaVivo() ? 1 : 0) + " ");
+                }
+                pw.println();
+            }
+            for (Object Gen : poblacionPorGeneracion) {
+                pw.print(Gen + " ");
+            }
+            
+            pw.println();
+        } catch (IOException e) {
+            System.out.println("Error al guardar: " + e.getMessage());
+        }
+    }
+
+    
+    public static Tablero cargar(String archivo) {
+        try (Scanner sc = new Scanner(new File(archivo))) {
+            int filas = sc.nextInt();
+            sc.nextInt();
+            int gen = sc.nextInt();
+            Tablero t = new Tablero(filas);
+            t.generaciones = gen;
+
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < filas; j++) {
+                    if (sc.nextInt() == 1) {
+                        t.matriz[i][j].setEstaVivo(true);
+                    }
+                }
+            }
+
+            while (sc.hasNextInt()) {
+                t.poblacionPorGeneracion.add(sc.nextInt());
+            }
+
+            return t;
+        } catch (IOException e) {
+            System.out.println("Error al cargar archivo.");
+            return null;
+        }
     }
     
 }
