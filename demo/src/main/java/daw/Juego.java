@@ -21,7 +21,7 @@ public class Juego {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        
         System.out.println("Introduce el tamaño de la matriz (máximo 25):");
         int N = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
@@ -62,7 +62,7 @@ public class Juego {
 
             if (controlMenu == 1) {
                 juego.mostrarGeneracionSiguiente();
-                tablero.comprobarMatrizRepe();
+                
             } else if (controlMenu == 2) {
                 break;
             } else if (controlMenu == 3) {

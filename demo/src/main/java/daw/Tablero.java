@@ -14,6 +14,7 @@ public class Tablero {
     private int N;
     private static final int MAX_SIZE = 25;
     private List<Celula[][]> lista_Matrizes = new ArrayList<>();
+    private int contadorRepe = 1;  
 
     // Constructor de la clase Tablero
     public Tablero(int N) {
@@ -23,13 +24,23 @@ public class Tablero {
         if (N <= MAX_SIZE && N > 0) {
             this.N = N;
         } else {
-            this.N = 25;
+            this.N = 25;  
         }
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 matriz[i][j] = new Celula(false);
             }
         }
+    }
+     
+     private Celula[][] clonarMatriz(Celula[][] matrizOriginal) {
+        Celula[][] matrizClonada = new Celula[matrizOriginal.length][matrizOriginal[0].length];
+        for (int i = 0; i < matrizOriginal.length; i++) {
+            for (int j = 0; j < matrizOriginal[i].length; j++) {
+                matrizClonada[i][j] = new Celula(matrizOriginal[i][j].isEstaVivo());
+            }
+        }
+        return matrizClonada;
     }
 
     public Celula[][] getMatriz(int fila, int columna) {
@@ -211,41 +222,31 @@ public class Tablero {
                 }
             }
         }
+
+        comprobarMatrizRepe();
         
         
         this.matriz = nuevaMatriz;
        
     }
 
-    public boolean comprobarMatrizRepe() {
-        int vivas1 = 0;
-        int vivas2 = 0;
-        int vivas3 = 0;
-        this.lista_Matrizes.add(this.matriz);
 
-        if(lista_Matrizes.size() > 2 ){
+
+    public boolean comprobarMatrizRepe() {
+        lista_Matrizes.add(clonarMatriz(this.matriz));
+
+        if (lista_Matrizes.size() > 3) {
             lista_Matrizes.remove(0);
-                }
-         vivas1 = contarVivas(lista_Matrizes.get(0));
-        if(lista_Matrizes.size() > 1){
-         vivas2 = contarVivas(lista_Matrizes.get(1));
         }
-        if(lista_Matrizes.size() > 2){
-         vivas3 = contarVivas(lista_Matrizes.get(2));
-        }
-        if (vivas1 == vivas2 && vivas2 == vivas3){
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    if(Arrays.deepEquals(lista_Matrizes.get(0), lista_Matrizes.get(1)) && Arrays.deepEquals(lista_Matrizes.get(1), lista_Matrizes.get(2))){
-                        System.out.println("Funciona");
-                        return true;
-                    }
-                }
+
+        if (lista_Matrizes.size() == 3) {
+            if (Arrays.deepEquals(lista_Matrizes.get(0), lista_Matrizes.get(1)) &&
+                Arrays.deepEquals(lista_Matrizes.get(1), lista_Matrizes.get(2))) {
+                return false;
             }
         }
-        
-        
-        return false;
-    } 
+
+        return true;
+    }
     
 }
