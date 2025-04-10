@@ -5,16 +5,13 @@ import java.util.Scanner;
 public class Juego {
 
     private static Tablero tablero;
+    private static int N;
 
     public Juego(int N) {
         Juego.tablero = new Tablero(N);
     }
 
-    public void mostrarGeneracionSiguiente() {
-        tablero.siguienteGeneracion();
-        tablero.mostrarMatriz();
-
-    }
+   
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -37,6 +34,7 @@ public class Juego {
             tablero = Tablero.cargar(ArchivoCarga);
             
             tablero.mostrarMatriz();
+            
         } else {
 
             System.out.println("Introduce el tamaño de la matriz (máximo 25):");
@@ -74,7 +72,7 @@ public class Juego {
                 }
             }
         }
-        juego = new Juego(tablero.getN());
+        
         do {
             System.out.println("Menu Generacion");
             System.out.println("1. Mostrar siguiente generación");
@@ -84,8 +82,10 @@ public class Juego {
             controlMenu = scanner.nextInt();
             scanner.nextLine();
             switch (controlMenu) {
-                case 1 ->
-                    juego.mostrarGeneracionSiguiente();
+                case 1 ->{
+                tablero.siguienteGeneracion();
+                tablero.mostrarMatriz();
+                }
                 case 2 -> {
                     break;
                 }
