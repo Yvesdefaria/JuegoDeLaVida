@@ -23,15 +23,18 @@ public class Juego {
         int menuColocacion = 0;
         int controlMenu = 0;
         Juego juego = null;
-        Tablero t1 = null;
+        
 
+
+        
+        System.out.println("-------JUEGO DE LA VIDA-------");
         System.out.println("¿Quieres cargar un archivo? SI(1)/NO(2)");
         int opcion_Cargar = scanner.nextInt();
         if (opcion_Cargar == 1) {
             scanner.nextLine();
             System.out.println("Introduzca el nombre del archivo");
             ArchivoCarga = scanner.nextLine();
-            t1 = Tablero.cargar(ArchivoCarga);
+            tablero = Tablero.cargar(ArchivoCarga);
             
             tablero.mostrarMatriz();
         } else {
@@ -42,7 +45,7 @@ public class Juego {
             
             if (N > 25) {
                 System.out.println("El tamaño máximo permitido es 25.");
-                return;
+                 return;
             }
 
             juego = new Juego(N);
@@ -71,7 +74,7 @@ public class Juego {
                 }
             }
         }
-        
+        juego = new Juego(tablero.getN());
         do {
             System.out.println("Menu Generacion");
             System.out.println("1. Mostrar siguiente generación");
